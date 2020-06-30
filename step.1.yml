@@ -13,8 +13,8 @@
   become: yes
   lineinfile:
     path: /etc/ntp.conf
-    regexp: "{{item.From}}"
-    line: "{{item.To}}"
+    regexp: "{{ item.From }}"
+    line: "{{ item.To }}"
   with_items:
     - { From: "pool 0.debian.pool.ntp.org iburst", To: "#pool 0.debian.pool.ntp.org iburst"}
     - { From: "pool 1.debian.pool.ntp.org iburst", To: "#pool 1.debian.pool.ntp.org iburst"}
@@ -58,12 +58,12 @@
 
 #++++++++++++++++++++++++++++
 #Configure NAT
-- name: Modify NTP in headnode  
+- name: Modify NAT in headnode  
   become: yes
   lineinfile:
     path: /etc/sysctl.conf
     regexp: '#net.ipv4.ip_forward=1'
-    replace: 'net.ipv4.ip_forward=1'
+    line: 'net.ipv4.ip_forward=1'
 
 - name: Mask IP addresses of me cluster  
   become: yes
