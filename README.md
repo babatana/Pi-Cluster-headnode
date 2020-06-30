@@ -15,7 +15,7 @@ Files called by local.yml
 
 
 step.1.yml
-^^^^^^^^^^
+----------
 This file is dedicated into installing/configuring the required packages
 -> Installing and enabling NTP:
     Installs the ntp package
@@ -39,7 +39,7 @@ This file is dedicated into installing/configuring the required packages
 
 
 step.2.yml
-^^^^^^^^^^
+----------
 This file is dedicated into making configurations to allow for a smooth SSH connection
 -> Modifying /etc/hosts:
     Changes the address of the headnode to 172.27.1.254
