@@ -8,7 +8,7 @@
   lineinfile:
     path: /etc/hosts
     regexp: "127.0.1.1\t\t{{ headnode }}"
-    replace: "172.27.1.254\t\t{{ headnode }}"
+    line: "172.27.1.254\t\t{{ headnode }}"
 
 - name: Modifying /etc/hosts to add the first worker node
   become: yes
@@ -90,7 +90,7 @@
   lineinfile:
     path: /etc/default/isc-dhcp-server
     regexp: 'INTERFACESv4="eth0"'
-    replace: 'INTERFACESv4="eth0 eth1"'
+    line: 'INTERFACESv4="eth0 eth1"'
 
 
 
