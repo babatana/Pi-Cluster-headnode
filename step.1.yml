@@ -72,8 +72,12 @@
     source: 172.27.1.0/24 
     out_interface: eth1 
     jump: MASQUERADE
-  notify:
-  - persist iptables  
+    
+- name: Install iptables persistent
+  become: yes
+  apt:
+    pkg:
+     - iptables-persistent
 
 
 
