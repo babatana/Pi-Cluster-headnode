@@ -44,6 +44,7 @@
      - nfs-kernel-server
 
 - name: Add line to file
+  become: yes
   lineinfile:
     path: /etc/exports
     line: "/home 172.27.1.0/24(rw,sync)"
