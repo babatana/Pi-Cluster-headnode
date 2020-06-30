@@ -95,8 +95,8 @@
 
 
 #++++++++++++++++++++++++++++
-#Having new leases
-- name: Having new leases  
-  become: yes
-  command:
-    cmd: #PLACE COMMAND HERE
+# #Having new leases
+# - name: Having new leases  
+#   become: yes
+#   command:
+#     cmd: #PLACE COMMAND HERE
