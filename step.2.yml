@@ -7,7 +7,7 @@
   become: yes
   lineinfile:
     path: /etc/hosts
-    regexp: "172.0.1.1\t\t{{ headnode }}"
+    regexp: "127.0.1.1\t\t{{ headnode }}"
     line: "172.27.1.254\t\t{{ headnode }}"
 
 - name: Modifying /etc/hosts to add the first worker node
@@ -27,7 +27,7 @@
     block: |
       
 
-      interface eth1:
+      interface eth1
       metric 301
       static ip_address=172.27.1.254
       static routers=172.27.1.1
@@ -78,7 +78,7 @@
 
 #++++++++++++++++++++++++++++
 #Modifying /etc/default/isc-dhcp-server
-- name: Modify NTP in headnode  
+- name: Add eth1 interface tp isc-dhcp-server
   become: yes
   lineinfile:
     path: /etc/default/isc-dhcp-server
