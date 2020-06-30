@@ -13,13 +13,13 @@
   become: yes
   lineinfile:
     path: /etc/ntp.conf
-    regexp: '{{items.From}}'
-    replace: '{{items.To}}'
+    regexp: "{{item.From}}"
+    replace: "{{item.To}}"
     with_items:
-      - { From: 'pool 0.debian.pool.ntp.org iburst', To: '#pool 0.debian.pool.ntp.org iburst'}
-      - { From: 'pool 1.debian.pool.ntp.org iburst', To: '#pool 1.debian.pool.ntp.org iburst'}
-      - { From: 'pool 2.debian.pool.ntp.org iburst', To: '#pool 2.debian.pool.ntp.org iburst'}
-      - { From: 'pool 3.debian.pool.ntp.org iburst', To: '#pool 3.debian.pool.ntp.org iburst'}
+      - { From: "pool 0.debian.pool.ntp.org iburst", To: "#pool 0.debian.pool.ntp.org iburst"}
+      - { From: "pool 1.debian.pool.ntp.org iburst", To: "#pool 1.debian.pool.ntp.org iburst"}
+      - { From: "pool 2.debian.pool.ntp.org iburst", To: "#pool 2.debian.pool.ntp.org iburst"}
+      - { From: "pool 3.debian.pool.ntp.org iburst", To: "#pool 3.debian.pool.ntp.org iburst"}
 
 - name: Add the new server
   become: yes
