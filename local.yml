@@ -15,5 +15,5 @@
   - include_tasks: "step.1.yml"
   - include_tasks: "step.2.yml"
     vars:
-      headnode: {{ headnode_name }}
-      worker_MAC: {{ worker_MAC_address }}
+      headnode: '{{ headnode_name }}'
+      worker_MAC: '{{ worker_MAC_address }}'
