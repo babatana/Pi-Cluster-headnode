@@ -5,8 +5,8 @@ The main file to be run upon calling ansible pull: local.yml
     Create the role of iptables_persistent, in order to allow iptables changes to persist
     Var_prompt is used in order to ask the user for the head node and the MAC address of the first worker node
     Tasks runs the files that have the tasks for this playbook. As of right now, those are:
-        -> step.1.yml
-        -> step.2.yml
+    -> step.1.yml
+    -> step.2.yml
 
 
 -------------------------
