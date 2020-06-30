@@ -14,7 +14,7 @@
   lineinfile:
     path: /etc/ntp.conf
     regexp: "{{item.From}}"
-    replace: "{{item.To}}"
+    line: "{{item.To}}"
   with_items:
     - { From: "pool 0.debian.pool.ntp.org iburst", To: "#pool 0.debian.pool.ntp.org iburst"}
     - { From: "pool 1.debian.pool.ntp.org iburst", To: "#pool 1.debian.pool.ntp.org iburst"}
