@@ -7,7 +7,6 @@ The main file to be run upon calling ansible pull: local.yml
     Tasks runs the files that have the tasks for this playbook. As of right now, those are:
 
     -> step.1.yml
-
     -> step.2.yml
 
 
