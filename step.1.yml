@@ -1,0 +1,109 @@
+---
+#INSTALLING PACKAGES FROM THE TRAINING
+#-------------------------------------
+
+#Enabling NTP
+- name: Enable NTP in headnode
+  become: yes
+  apt:
+    pkg:
+     - ntp
+  
+- name: Modify NTP in headnode  
+  become: yes
+  lineinfile:
+    path: /etc/ntp.conf
+    regexp: '{{item.From}}'
+    replace: '{{item.To}}'
+    with_items:
+      - { From: 'pool 0.debian.pool.ntp.org iburst', To: '#pool 0.debian.pool.ntp.org iburst'}
+      - { From: 'pool 1.debian.pool.ntp.org iburst', To: '#pool 1.debian.pool.ntp.org iburst'}
+      - { From: 'pool 2.debian.pool.ntp.org iburst', To: '#pool 2.debian.pool.ntp.org iburst'}
+      - { From: 'pool 3.debian.pool.ntp.org iburst', To: '#pool 3.debian.pool.ntp.org iburst'}
+
+- name: Add the new server
+  become: yes
+  lineinfile:
+    path: /etc/ntp.conf
+    line: "pool timehost.stolaf.edu"
+    insertbefore: "# Access control configuration; see /usr/share/doc/ntp-doc/html/accopt.html for"
+
+- name: Restart NTP in headnode  
+  become: yes
+  command:
+    cmd: "systemctl restart ntp"
+
+
+
+#++++++++++++++++++++++++++++
+#Installing NFS
+- name: Install NFS in headnode
+  become: yes
+  apt:
+    pkg:
+     - nfs-kernel-server
+
+- name: Add line to file
+  lineinfile:
+    path: /etc/exports
+    line: "/home 172.27.1.0/24(rw,sync)"
+
+- name: exportfs -a  
+  become: yes
+  command:
+    cmd: exportfs -a
+
+
+
+#++++++++++++++++++++++++++++
+#Configure NAT
+- name: Modify NTP in headnode  
+  become: yes
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '#net.ipv4.ip_forward=1'
+    replace: 'net.ipv4.ip_forward=1'
+
+- name: Mask IP addresses of me cluster  
+  become: yes
+  iptables:
+    table: nat 
+    chain: POSTROUTING 
+    source: 172.27.1.0/24 
+    out_interface: eth1 
+    jump: MASQUERADE
+  notify:
+  - persist iptables  
+
+
+
+#++++++++++++++++++++++++++++
+#Install DHCP
+- name: Install DHCP
+  become: yes
+  apt:
+    pkg:
+     - isc-dhcp-server
+
+
+
+#++++++++++++++++++++++++++++
+#Install OpenMPI
+- name: Install OpenMPI
+  become: yes
+  apt:
+    pkg:
+     - openmpi-bin 
+     - openmpi-common 
+     - libopenmpi3 
+     - libopenmpi-dev
+
+- name: Installing mpi4py for python 3
+  pip:
+    executable: pip3
+    name: mpi4py
+
+- name: Installing mpi4py for python 2
+  pip:
+    executable: pip2
+    name: mpi4py
