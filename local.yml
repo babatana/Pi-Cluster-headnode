@@ -1,15 +1,9 @@
 ---
 - hosts: localhost
   remote_user: root
-  
-  vars_prompt:
-  - name: worker_MAC_address
-    #private: no
-    prompt: "Please insert the MAC address of the first worker node: "
-  
+
   tasks: 
   - include_tasks: "step.1.yml"
   - include_tasks: "step.2.yml"
     vars:
       headnode: '{{ ansible_facts['user_id'] }}'
-      worker_MAC: '{{ worker_MAC_address }}'
