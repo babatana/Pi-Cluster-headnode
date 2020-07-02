@@ -1,5 +1,7 @@
-# Test connection to node
-ping -c 1 -W 2 $SERVERIP &> /dev/null
+
+
+WorkerIp=
+ping -c 1 -W 2 $WorkerIp &> /dev/null
 if [[ $? != 0 ]]
 then
     logger "Could not connect to server"
