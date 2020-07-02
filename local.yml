@@ -15,5 +15,5 @@
   - include_tasks: "step.1.yml"
   - include_tasks: "step.2.yml"
     vars:
-      headnode: '{{ headnode_name }}'
+      headnode: '{{ ansible_facts['user_id'] }}'
       worker_MAC: '{{ worker_MAC_address }}'
