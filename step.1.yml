@@ -112,3 +112,13 @@
   pip:
     executable: pip2
     name: mpi4py
+
+
+
+#++++++++++++++++++++++++++++
+#Install fping
+- name: Install fping
+  become: yes
+  apt:
+    pkg:
+     - fing
