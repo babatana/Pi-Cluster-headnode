@@ -62,11 +62,6 @@
 
               filename "pxelinux.0";
               next-server 172.27.1.254;
-
-              host worker0 {
-                      hardware ethernet {{ worker_MAC }}; # find the MAC correct address
-                      fixed-address 127.27.1.2;
-              }
       }
 
 - name: Restarting DHCP
@@ -84,6 +79,25 @@
     path: /etc/default/isc-dhcp-server
     regexp: 'INTERFACESv4="eth0"'
     line: 'INTERFACESv4="eth0 eth1"'
+
+
+
+#++++++++++++++++++++++++++++
+#Creating extra.sh link
+- name: Obtaining extra.sh
+  become: yes
+  copy: 
+    src: extra.sh
+    dest: /usr/extra.sh
+    owner: root
+    mode: '0777'
+    
+- name: Creating extra.sh link
+  become: yes
+  file:
+    src: /usr/extra.sh
+    path: /usr/bin/exprocs
+    state: link
 
 
 
