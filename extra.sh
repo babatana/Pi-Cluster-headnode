@@ -1,9 +1,6 @@
+LINES = `fping -a -c1 -t500 -g 172.27.1.1 172.27.1.254 2>&1 | grep --color="never" "min/avg/max"`
 
-
-WorkerIp=
-ping -c 1 -W 2 $WorkerIp &> /dev/null
-if [[ $? != 0 ]]
-then
-    logger "Could not connect to server"
-    exit 2
-fi
+for lines in $LINES
+do 
+    echo $line | cut -d ' <space>' -f <field number>
+done 
