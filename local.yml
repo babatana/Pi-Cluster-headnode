@@ -3,10 +3,6 @@
   remote_user: root
   
   vars_prompt:
-  - name: headnode_name
-    #private: no
-    prompt: "Please insert the name of the headnode: " 
-  
   - name: worker_MAC_address
     #private: no
     prompt: "Please insert the MAC address of the first worker node: "
