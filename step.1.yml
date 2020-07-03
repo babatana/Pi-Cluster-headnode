@@ -51,11 +51,17 @@
     group: "{{ ansible_facts['user_id'] }}"
     state: directory
       
-- name: Add line to file
+- name: Export HDMPI to worker nodes 
   become: yes
   lineinfile:
     path: /etc/exports
     line: "/HDMPI 172.27.1.0/24(rw,sync)"
+    
+- name: Export .ssh to worker nodes
+  become: yes
+  lineinfile:
+    path: /etc/exports
+    line: "/home/{{ ansible_facts['user_id'] }}/.ssh 172.27.1.0/24(rw,sync)"
 
 - name: exportfs -a  
   become: yes
