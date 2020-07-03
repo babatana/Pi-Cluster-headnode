@@ -18,18 +18,18 @@
     line: "172.27.1.2\t\tworker0"
 
 # the following files were'nt present in the head node .ssh dir and there were no ssh keys generated. 
-  - name: "Create the the authorized_keys file in .ssh"
-    file:
-      path: "{{ ansible_facts['user_dir'] }}/.ssh/authorized_keys"
-      owner: "{{ ansible_facts['user_id'] }}"
-      group: "{{ ansible_facts['user_id'] }}"
-      state: touch
+- name: "Create the the authorized_keys file in .ssh"
+  file:
+    path: "{{ ansible_facts['user_dir'] }}/.ssh/authorized_keys"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    state: touch
 
-  - name: "Setting up passwordless SSH"
-    openssh_keypair:
-      path: "{{ ansible_facts['user_dir'] }}/.ssh/id_rsa"
-      owner: "{{ ansible_facts['user_id'] }}" 
-      group: "{{ ansible_facts['user_id'] }}"
+- name: "Setting up passwordless SSH"
+  openssh_keypair:
+    path: "{{ ansible_facts['user_dir'] }}/.ssh/id_rsa"
+    owner: "{{ ansible_facts['user_id'] }}" 
+    group: "{{ ansible_facts['user_id'] }}"
       
       
       
