@@ -44,6 +44,7 @@
      - nfs-kernel-server
 
 - name: "Create the HDMPI directory" 
+  become: yes
   file:
     path: /HDMPI
     owner: "{{ ansible_facts['user_id'] }}"
