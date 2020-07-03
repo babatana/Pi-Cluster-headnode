@@ -121,4 +121,4 @@
   become: yes
   apt:
     pkg:
-     - fing
+     - fping
