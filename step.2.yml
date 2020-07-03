@@ -10,6 +10,7 @@
     regexp: "127.0.1.1\t\t{{ headnode }}"
     line: "172.27.1.254\t\t{{ headnode }}"
 
+#Is this block necessary given no more static ips for workers??
 - name: Modifying /etc/hosts to add the first worker node
   become: yes
   lineinfile:
