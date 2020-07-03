@@ -2,20 +2,6 @@
 #CONFIGURING INITIALLIZATION for the SSH CONNECTION
 #---------------------------------------
 
-#Modifying /etc/hosts
-- name: Modifying /etc/hosts to change the headnode 
-  become: yes
-  lineinfile:
-    path: /etc/hosts
-    regexp: "127.0.1.1\t\t{{ headnode }}"
-    line: "172.27.1.254\t\t{{ headnode }}"
-
-#Is this block necessary given no more static ips for workers??
-- name: Modifying /etc/hosts to add the first worker node
-  become: yes
-  lineinfile:
-    path: /etc/hosts
-    line: "172.27.1.2\t\tworker0"
 
 # the following files were'nt present in the head node .ssh dir and there were no ssh keys generated. 
 - name: "Create the the authorized_keys file in .ssh"
