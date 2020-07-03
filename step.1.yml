@@ -43,11 +43,18 @@
     pkg:
      - nfs-kernel-server
 
+- name: "Create the HDMPI directory" 
+  file:
+    path: /HDMPI"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    state: directory
+      
 - name: Add line to file
   become: yes
   lineinfile:
     path: /etc/exports
-    line: "/home 172.27.1.0/24(rw,sync)"
+    line: "/HDMPI 172.27.1.0/24(rw,sync)"
 
 - name: exportfs -a  
   become: yes
