@@ -5,7 +5,7 @@
   tasks:
   - name: Stop ansible if user runs ansible-pull with sudo 
     fail:
-      msg: Please do not use sudo to run ansible-pull 
+      msg: HEY, DO NOT USE SUDO FOR ANSIBLE-PULL 
     when: ansible_facts['user_id'] == "root"
     
   - include_tasks: "step.1.yml"
