@@ -2,7 +2,12 @@
 - hosts: localhost
   remote_user: root
 
-  tasks: 
+  tasks:
+  - name: Stop ansible if user runs ansible-pull with sudo 
+    fail:
+      msg: Please do not use sudo to run ansible-pull 
+    when: "{{ ansible_facts['user_id'] }}" == "root"
+    
   - include_tasks: "step.1.yml"
   - include_tasks: "step.2.yml"
     vars:
