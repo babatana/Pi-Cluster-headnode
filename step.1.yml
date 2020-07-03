@@ -45,7 +45,7 @@
 
 - name: "Create the HDMPI directory" 
   file:
-    path: /HDMPI"
+    path: /HDMPI
     owner: "{{ ansible_facts['user_id'] }}"
     group: "{{ ansible_facts['user_id'] }}"
     state: directory
