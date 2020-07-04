@@ -70,6 +70,12 @@
   command:
     cmd: systemctl start isc-dhcp-server
 
+- name: Restart dhcpcd
+  become: yes
+  systemd:
+    name: dhcpcd.service
+    state: restarted
+
 
 
 #++++++++++++++++++++++++++++
