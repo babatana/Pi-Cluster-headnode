@@ -50,7 +50,14 @@
     owner: "{{ ansible_facts['user_id'] }}"
     group: "{{ ansible_facts['user_id'] }}"
     state: directory
-      
+ 
+- name: "Create the .shh directory" 
+  file:
+    path: "{{ ansible_facts['user_dir'] }}/.ssh"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    state: directory
+    
 - name: Export HDMPI to worker nodes 
   become: yes
   lineinfile:
