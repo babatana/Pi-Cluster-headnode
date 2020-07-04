@@ -68,7 +68,7 @@
   become: yes
   lineinfile:
     path: /etc/exports
-    line: "/home/{{ ansible_facts['user_id'] }}/.ssh 172.27.1.0/24(rw,sync)"
+    line: "{{ ansible_facts['user_dir'] }}/.ssh 172.27.1.0/24(rw,sync)"
 
 - name: exportfs -a  
   become: yes
