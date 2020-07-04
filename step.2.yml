@@ -68,7 +68,7 @@
 - name: Restarting DHCP
   become: yes 
   command:
-    cmd: systemctl start isc-dhcp-server
+    cmd: systemctl restart isc-dhcp-server
 
 - name: Restart dhcpcd
   become: yes
