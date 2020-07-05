@@ -17,8 +17,11 @@
     owner: "{{ ansible_facts['user_id'] }}" 
     group: "{{ ansible_facts['user_id'] }}"
       
-      
-      
+- name: "Copying the SSH key to the authorized_keys file"
+shell: cat "{{ ansible_facts['user_dir'] }}/.ssh/id_rsa.pub" > "{{ ansible_facts['user_dir'] }}/.ssh/authorized_keys"
+
+
+
 #++++++++++++++++++++++++++++
 #Modifying /etc/dhcpcd.conf
 - name: Modifying /etc/dhcpcd.conf
