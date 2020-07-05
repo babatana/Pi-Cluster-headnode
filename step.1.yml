@@ -43,11 +43,32 @@
     pkg:
      - nfs-kernel-server
 
-- name: Add line to file
+- name: "Create the HDMPI directory" 
+  become: yes
+  file:
+    path: /HDMPI
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    state: directory
+ 
+- name: "Create the .shh directory" 
+  file:
+    path: "{{ ansible_facts['user_dir'] }}/.ssh"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    state: directory
+    
+- name: Export HDMPI to worker nodes 
   become: yes
   lineinfile:
     path: /etc/exports
-    line: "/home 172.27.1.0/24(rw,sync)"
+    line: "/HDMPI 172.27.1.0/24(rw,sync)"
+    
+- name: Export .ssh to worker nodes
+  become: yes
+  lineinfile:
+    path: /etc/exports
+    line: "{{ ansible_facts['user_dir'] }}/.ssh 172.27.1.0/24(rw,sync)"
 
 - name: exportfs -a  
   become: yes
@@ -121,4 +142,4 @@
   become: yes
   apt:
     pkg:
-     - fing
+     - fping

@@ -2,19 +2,23 @@
 #CONFIGURING INITIALLIZATION for the SSH CONNECTION
 #---------------------------------------
 
-#Modifying /etc/hosts
-- name: Modifying /etc/hosts to change the headnode 
-  become: yes
-  lineinfile:
-    path: /etc/hosts
-    regexp: "127.0.1.1\t\t{{ headnode }}"
-    line: "172.27.1.254\t\t{{ headnode }}"
 
-- name: Modifying /etc/hosts to add the first worker node
-  become: yes
-  lineinfile:
-    path: /etc/hosts
-    line: "172.27.1.2\t\tworker0"
+# the following files were'nt present in the head node .ssh dir and there were no ssh keys generated. 
+- name: "Create the the authorized_keys file in .ssh"
+  file:
+    path: "{{ ansible_facts['user_dir'] }}/.ssh/authorized_keys"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    state: touch
+
+- name: "Setting up passwordless SSH"
+  openssh_keypair:
+    path: "{{ ansible_facts['user_dir'] }}/.ssh/id_rsa"
+    owner: "{{ ansible_facts['user_id'] }}" 
+    group: "{{ ansible_facts['user_id'] }}"
+      
+- name: "Copying the SSH key to the authorized_keys file"
+shell: cat "{{ ansible_facts['user_dir'] }}/.ssh/id_rsa.pub" > "{{ ansible_facts['user_dir'] }}/.ssh/authorized_keys"
 
 
 
@@ -67,8 +71,23 @@
 - name: Restarting DHCP
   become: yes 
   command:
-    cmd: systemctl start isc-dhcp-server
+    cmd: systemctl restart isc-dhcp-server
 
+- name: Restart dhcpcd
+  become: yes
+  systemd:
+    name: dhcpcd.service
+    state: restarted
+
+- name: Wait for DHCP to fail
+  wait_for:
+    timeout: 20
+
+- name: Restart dhcpcd
+  become: yes
+  systemd:
+    name: dhcpcd.service
+    state: restarted
 
 
 #++++++++++++++++++++++++++++
